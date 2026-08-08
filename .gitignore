@@ -1,0 +1,37 @@
+# Rust build artifacts
+target/
+*.swp
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+*.egg-info/
+
+# Model checkpoints (large files)
+checkpoints/*.pt
+*.pt
+
+# Tokenizer model (include model_32k.json but not intermediates)
+model.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+*.aux
+*.out
+
+# Data (keep physics_qa_dataset.json, ignore large corpora)
+*.bin
+corpus.txt
+COMBINED_CORPUS.txt
+auto_corpus.txt

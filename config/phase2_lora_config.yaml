@@ -1,0 +1,45 @@
+experiment:
+  name: phase2_lora_physics
+  seed: 42
+
+model:
+  base_checkpoint: checkpoints/production_sml_v1.pt
+  base_summary: checkpoints/prototype_long4h_summary.json
+  tokenizer_model: subword_tokenizer/model_32k.json
+
+lora:
+  r: 8
+  alpha: 16
+  dropout: 0.05
+  # Substring match against module names in TinyLM.
+  target_modules:
+    - self_attn.out_proj
+    - linear1
+    - linear2
+    - head
+
+training:
+  output_dir: checkpoints/phase2_lora
+  train_bin: data/offline_physics/train.bin
+  val_bin: data/offline_physics/val.bin
+  seq_len: 256
+  batch_size: 4
+  grad_accum_steps: 2
+  learning_rate: 0.0002
+  weight_decay: 0.01
+  max_steps: 10000
+  warmup_steps: 500
+  eval_every: 500
+  eval_steps: 100
+  save_every: 1000
+  num_workers: 0
+  device: auto
+
+corpus_prep:
+  category: physics
+  max_papers: 50000
+  min_tokens: 12
+  delay_seconds: 3
+  train_ratio: 0.8
+  val_ratio: 0.1
+  test_ratio: 0.1

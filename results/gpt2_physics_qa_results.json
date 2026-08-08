@@ -1,0 +1,579 @@
+{
+  "metadata": {
+    "model": "gpt2 (124M)",
+    "task": "physics_qa_baseline_comparison",
+    "timestamp": "2026-08-02 13:43:23",
+    "device": "cpu",
+    "num_questions": 20,
+    "elapsed_seconds": 8.032962560653687
+  },
+  "summary": {
+    "avg_score": 0.325,
+    "exact_match_rate": 0.25,
+    "semantic_or_better_rate": 0.4,
+    "by_category": {
+      "quantum_mechanics": {
+        "avg_score": 0.25,
+        "exact_rate": 0.25
+      },
+      "relativity_cosmology": {
+        "avg_score": 0.75,
+        "exact_rate": 0.5
+      },
+      "thermodynamics_statistical": {
+        "avg_score": 0.0,
+        "exact_rate": 0.0
+      },
+      "electromagnetism": {
+        "avg_score": 0.375,
+        "exact_rate": 0.25
+      },
+      "particle_physics": {
+        "avg_score": 0.25,
+        "exact_rate": 0.25
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "qm_qa_001",
+      "category": "quantum_mechanics",
+      "question": "What is the de Broglie wavelength relation for a particle?",
+      "expected": "lambda equals h over p",
+      "expected_rank": 4,
+      "score": 0.0,
+      "best_answer": "force equals mass times acceleration",
+      "ranked_options": [
+        {
+          "answer": "force equals mass times acceleration",
+          "avg_logprob": -7.44975733757019
+        },
+        {
+          "answer": "energy equals m c squared",
+          "avg_logprob": -8.448011112213134
+        },
+        {
+          "answer": "lambda equals p over h",
+          "avg_logprob": -8.726597499847411
+        },
+        {
+          "answer": "lambda equals h over p",
+          "avg_logprob": -9.109613513946533
+        }
+      ]
+    },
+    {
+      "id": "qm_qa_002",
+      "category": "quantum_mechanics",
+      "question": "According to the Born rule, what does the square of the wavefunction magnitude represent?",
+      "expected": "probability density",
+      "expected_rank": 3,
+      "score": 0.0,
+      "best_answer": "total energy density",
+      "ranked_options": [
+        {
+          "answer": "total energy density",
+          "avg_logprob": -7.214346885681152
+        },
+        {
+          "answer": "electric field strength",
+          "avg_logprob": -7.653095722198486
+        },
+        {
+          "answer": "probability density",
+          "avg_logprob": -8.886428117752075
+        },
+        {
+          "answer": "particle momentum",
+          "avg_logprob": -10.459793329238892
+        }
+      ]
+    },
+    {
+      "id": "qm_qa_003",
+      "category": "quantum_mechanics",
+      "question": "Which commutator corresponds to position and momentum in one dimension?",
+      "expected": "x and p commute to i hbar",
+      "expected_rank": 4,
+      "score": 0.0,
+      "best_answer": "x and p commute to zero",
+      "ranked_options": [
+        {
+          "answer": "x and p commute to zero",
+          "avg_logprob": -6.135410785675049
+        },
+        {
+          "answer": "x and p commute to c",
+          "avg_logprob": -6.445520242055257
+        },
+        {
+          "answer": "x and p commute to h squared",
+          "avg_logprob": -6.6060895919799805
+        },
+        {
+          "answer": "x and p commute to i hbar",
+          "avg_logprob": -7.132329106330872
+        }
+      ]
+    },
+    {
+      "id": "qm_qa_004",
+      "category": "quantum_mechanics",
+      "question": "What principle limits simultaneous precision of position and momentum?",
+      "expected": "heisenberg uncertainty principle",
+      "expected_rank": 1,
+      "score": 1.0,
+      "best_answer": "heisenberg uncertainty principle",
+      "ranked_options": [
+        {
+          "answer": "heisenberg uncertainty principle",
+          "avg_logprob": -6.826507350802421
+        },
+        {
+          "answer": "equivalence principle",
+          "avg_logprob": -7.387460897366206
+        },
+        {
+          "answer": "pauli exclusion principle",
+          "avg_logprob": -8.100795364379882
+        },
+        {
+          "answer": "least action principle",
+          "avg_logprob": -9.700442949930826
+        }
+      ]
+    },
+    {
+      "id": "rc_qa_001",
+      "category": "relativity_cosmology",
+      "question": "In special relativity, what happens to time for a fast-moving clock?",
+      "expected": "time dilation",
+      "expected_rank": 1,
+      "score": 1.0,
+      "best_answer": "time dilation",
+      "ranked_options": [
+        {
+          "answer": "time dilation",
+          "avg_logprob": -5.341217294335365
+        },
+        {
+          "answer": "time is unchanged",
+          "avg_logprob": -7.385952472686768
+        },
+        {
+          "answer": "time reversal",
+          "avg_logprob": -9.620038986206055
+        },
+        {
+          "answer": "time contraction",
+          "avg_logprob": -10.35118293762207
+        }
+      ]
+    },
+    {
+      "id": "rc_qa_002",
+      "category": "relativity_cosmology",
+      "question": "What geometric object is curved by mass-energy in general relativity?",
+      "expected": "spacetime",
+      "expected_rank": 1,
+      "score": 1.0,
+      "best_answer": "spacetime",
+      "ranked_options": [
+        {
+          "answer": "spacetime",
+          "avg_logprob": -6.729916468262672
+        },
+        {
+          "answer": "wavefunction phase",
+          "avg_logprob": -8.192614793777466
+        },
+        {
+          "answer": "electric potential",
+          "avg_logprob": -10.234753847122192
+        },
+        {
+          "answer": "rest mass",
+          "avg_logprob": -12.66627836227417
+        }
+      ]
+    },
+    {
+      "id": "rc_qa_003",
+      "category": "relativity_cosmology",
+      "question": "What boundary of a black hole marks no return for light?",
+      "expected": "event horizon",
+      "expected_rank": 2,
+      "score": 0.5,
+      "best_answer": "accretion disk",
+      "ranked_options": [
+        {
+          "answer": "accretion disk",
+          "avg_logprob": -9.182811419169107
+        },
+        {
+          "answer": "event horizon",
+          "avg_logprob": -10.055261015892029
+        },
+        {
+          "answer": "photon sphere only",
+          "avg_logprob": -10.127629597981771
+        },
+        {
+          "answer": "ergosphere always",
+          "avg_logprob": -12.948305447896322
+        }
+      ]
+    },
+    {
+      "id": "rc_qa_004",
+      "category": "relativity_cosmology",
+      "question": "What is the speed of light in vacuum denoted by?",
+      "expected": "c",
+      "expected_rank": 2,
+      "score": 0.5,
+      "best_answer": "G",
+      "ranked_options": [
+        {
+          "answer": "G",
+          "avg_logprob": -8.958471298217773
+        },
+        {
+          "answer": "c",
+          "avg_logprob": -9.600774765014648
+        },
+        {
+          "answer": "h",
+          "avg_logprob": -10.110952377319336
+        },
+        {
+          "answer": "k",
+          "avg_logprob": -10.613386154174805
+        }
+      ]
+    },
+    {
+      "id": "ts_qa_001",
+      "category": "thermodynamics_statistical",
+      "question": "State the trend of entropy in an isolated system according to the second law.",
+      "expected": "entropy increases",
+      "expected_rank": 3,
+      "score": 0.0,
+      "best_answer": "entropy is always zero",
+      "ranked_options": [
+        {
+          "answer": "entropy is always zero",
+          "avg_logprob": -5.07326865196228
+        },
+        {
+          "answer": "entropy oscillates periodically",
+          "avg_logprob": -5.916213199496269
+        },
+        {
+          "answer": "entropy increases",
+          "avg_logprob": -6.9650232791900635
+        },
+        {
+          "answer": "entropy decreases",
+          "avg_logprob": -7.409904718399048
+        }
+      ]
+    },
+    {
+      "id": "ts_qa_002",
+      "category": "thermodynamics_statistical",
+      "question": "What function sums Boltzmann factors over states and encodes equilibrium thermodynamics?",
+      "expected": "partition function",
+      "expected_rank": 3,
+      "score": 0.0,
+      "best_answer": "hamiltonian density",
+      "ranked_options": [
+        {
+          "answer": "hamiltonian density",
+          "avg_logprob": -8.341340094804764
+        },
+        {
+          "answer": "equation of continuity",
+          "avg_logprob": -8.366629838943481
+        },
+        {
+          "answer": "partition function",
+          "avg_logprob": -10.407691955566406
+        },
+        {
+          "answer": "entropy current",
+          "avg_logprob": -11.351848602294922
+        }
+      ]
+    },
+    {
+      "id": "ts_qa_003",
+      "category": "thermodynamics_statistical",
+      "question": "What statistical factor weights a microstate of energy E at temperature T?",
+      "expected": "exp minus E over kT",
+      "expected_rank": 4,
+      "score": 0.0,
+      "best_answer": "E over T squared",
+      "ranked_options": [
+        {
+          "answer": "E over T squared",
+          "avg_logprob": -5.739781022071838
+        },
+        {
+          "answer": "E times kT",
+          "avg_logprob": -5.796206474304199
+        },
+        {
+          "answer": "exp plus E over kT",
+          "avg_logprob": -7.414881467819214
+        },
+        {
+          "answer": "exp minus E over kT",
+          "avg_logprob": -7.457364161809285
+        }
+      ]
+    },
+    {
+      "id": "ts_qa_004",
+      "category": "thermodynamics_statistical",
+      "question": "In equilibrium, what thermodynamic quantity is equal for systems in thermal contact?",
+      "expected": "temperature",
+      "expected_rank": 4,
+      "score": 0.0,
+      "best_answer": "particle number only",
+      "ranked_options": [
+        {
+          "answer": "particle number only",
+          "avg_logprob": -8.70269807179769
+        },
+        {
+          "answer": "volume only",
+          "avg_logprob": -10.758041381835938
+        },
+        {
+          "answer": "pressure only",
+          "avg_logprob": -11.76794719696045
+        },
+        {
+          "answer": "temperature",
+          "avg_logprob": -12.431984901428223
+        }
+      ]
+    },
+    {
+      "id": "em_qa_001",
+      "category": "electromagnetism",
+      "question": "Which law gives divergence of electric field in terms of charge density?",
+      "expected": "gauss law",
+      "expected_rank": 2,
+      "score": 0.5,
+      "best_answer": "ampere law without displacement",
+      "ranked_options": [
+        {
+          "answer": "ampere law without displacement",
+          "avg_logprob": -6.727113877733548
+        },
+        {
+          "answer": "gauss law",
+          "avg_logprob": -7.41491425037384
+        },
+        {
+          "answer": "faraday law",
+          "avg_logprob": -8.53579568862915
+        },
+        {
+          "answer": "lenz law",
+          "avg_logprob": -10.698183377583822
+        }
+      ]
+    },
+    {
+      "id": "em_qa_002",
+      "category": "electromagnetism",
+      "question": "What is the force on charge q moving with velocity v in fields E and B called?",
+      "expected": "lorentz force",
+      "expected_rank": 3,
+      "score": 0.0,
+      "best_answer": "coriolis force",
+      "ranked_options": [
+        {
+          "answer": "coriolis force",
+          "avg_logprob": -5.9995371252298355
+        },
+        {
+          "answer": "newton gravitational force",
+          "avg_logprob": -6.116486012935638
+        },
+        {
+          "answer": "lorentz force",
+          "avg_logprob": -8.870296835899353
+        },
+        {
+          "answer": "yukawa force",
+          "avg_logprob": -8.920425653457642
+        }
+      ]
+    },
+    {
+      "id": "em_qa_003",
+      "category": "electromagnetism",
+      "question": "What does a changing magnetic field induce according to Faraday's law?",
+      "expected": "electric field",
+      "expected_rank": 1,
+      "score": 1.0,
+      "best_answer": "electric field",
+      "ranked_options": [
+        {
+          "answer": "electric field",
+          "avg_logprob": -9.517276048660278
+        },
+        {
+          "answer": "gravitational wave",
+          "avg_logprob": -10.601848840713501
+        },
+        {
+          "answer": "mass current",
+          "avg_logprob": -13.79783010482788
+        },
+        {
+          "answer": "chemical potential",
+          "avg_logprob": -13.95451831817627
+        }
+      ]
+    },
+    {
+      "id": "em_qa_004",
+      "category": "electromagnetism",
+      "question": "Coulomb force scales with distance r as what inverse power?",
+      "expected": "inverse square",
+      "expected_rank": 3,
+      "score": 0.0,
+      "best_answer": "inverse first power",
+      "ranked_options": [
+        {
+          "answer": "inverse first power",
+          "avg_logprob": -7.000663081804912
+        },
+        {
+          "answer": "inverse fourth power",
+          "avg_logprob": -7.682477553685506
+        },
+        {
+          "answer": "inverse square",
+          "avg_logprob": -8.455021381378174
+        },
+        {
+          "answer": "inverse cube",
+          "avg_logprob": -10.411034107208252
+        }
+      ]
+    },
+    {
+      "id": "pp_qa_001",
+      "category": "particle_physics",
+      "question": "Which boson is associated with the electromagnetic interaction?",
+      "expected": "photon",
+      "expected_rank": 4,
+      "score": 0.0,
+      "best_answer": "gluon only",
+      "ranked_options": [
+        {
+          "answer": "gluon only",
+          "avg_logprob": -6.399974912405014
+        },
+        {
+          "answer": "higgs boson",
+          "avg_logprob": -7.971215717494488
+        },
+        {
+          "answer": "graviton",
+          "avg_logprob": -8.427676811814308
+        },
+        {
+          "answer": "photon",
+          "avg_logprob": -13.955520629882812
+        }
+      ]
+    },
+    {
+      "id": "pp_qa_002",
+      "category": "particle_physics",
+      "question": "What mechanism gives masses to W and Z bosons in the Standard Model?",
+      "expected": "higgs mechanism",
+      "expected_rank": 4,
+      "score": 0.0,
+      "best_answer": "cherenkov radiation",
+      "ranked_options": [
+        {
+          "answer": "cherenkov radiation",
+          "avg_logprob": -8.393165290355682
+        },
+        {
+          "answer": "photoelectric effect",
+          "avg_logprob": -8.538368622461954
+        },
+        {
+          "answer": "casimir effect",
+          "avg_logprob": -11.340776602427164
+        },
+        {
+          "answer": "higgs mechanism",
+          "avg_logprob": -11.892967224121094
+        }
+      ]
+    },
+    {
+      "id": "pp_qa_003",
+      "category": "particle_physics",
+      "question": "What interaction is mediated by gluons?",
+      "expected": "strong interaction",
+      "expected_rank": 1,
+      "score": 1.0,
+      "best_answer": "strong interaction",
+      "ranked_options": [
+        {
+          "answer": "strong interaction",
+          "avg_logprob": -8.28220534324646
+        },
+        {
+          "answer": "gravitational interaction",
+          "avg_logprob": -8.747306823730469
+        },
+        {
+          "answer": "weak interaction",
+          "avg_logprob": -8.856896162033081
+        },
+        {
+          "answer": "electromagnetic interaction",
+          "avg_logprob": -10.298464298248291
+        }
+      ]
+    },
+    {
+      "id": "pp_qa_004",
+      "category": "particle_physics",
+      "question": "Which quantum number is conserved in strong interactions and labels quark families?",
+      "expected": "flavor",
+      "expected_rank": 4,
+      "score": 0.0,
+      "best_answer": "viscosity",
+      "ranked_options": [
+        {
+          "answer": "viscosity",
+          "avg_logprob": -6.507572177797556
+        },
+        {
+          "answer": "entropy flux",
+          "avg_logprob": -11.715590476989746
+        },
+        {
+          "answer": "temperature",
+          "avg_logprob": -15.94960880279541
+        },
+        {
+          "answer": "flavor",
+          "avg_logprob": -17.785926818847656
+        }
+      ]
+    }
+  ]
+}

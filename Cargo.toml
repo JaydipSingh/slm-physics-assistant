@@ -1,0 +1,25 @@
+[package]
+name = "slm-physics-tokenizer"
+version = "1.0.0"
+edition = "2021"
+description = "Production BPE tokenizer for physics domain SLM training"
+authors = ["Jaydip Singh <jaydip.singh@gmail.com>", "Linkan Kumbhar"]
+license = "MIT"
+default-run = "bpe-tokenizer"
+
+[lib]
+name = "subword_tokenizer"
+path = "src/lib.rs"
+
+[[bin]]
+name = "bpe-tokenizer"
+path = "src/main.rs"
+
+[[bin]]
+name = "prune"
+path = "src/bin/prune.rs"
+
+[dependencies]
+rand = "0.8"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"

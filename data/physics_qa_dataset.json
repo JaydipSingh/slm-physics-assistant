@@ -1,0 +1,235 @@
+{
+  "metadata": {
+    "name": "phase3_task7_physics_qa_dataset",
+    "total_questions": 20,
+    "categories": 5,
+    "questions_per_category": 4,
+    "date": "2026-07-13"
+  },
+  "questions": [
+    {
+      "id": "qm_qa_001",
+      "category": "quantum_mechanics",
+      "question": "What is the de Broglie wavelength relation for a particle?",
+      "expected_answer": "lambda equals h over p",
+      "distractors": [
+        "lambda equals p over h",
+        "energy equals m c squared",
+        "force equals mass times acceleration"
+      ]
+    },
+    {
+      "id": "qm_qa_002",
+      "category": "quantum_mechanics",
+      "question": "According to the Born rule, what does the square of the wavefunction magnitude represent?",
+      "expected_answer": "probability density",
+      "distractors": [
+        "total energy density",
+        "particle momentum",
+        "electric field strength"
+      ]
+    },
+    {
+      "id": "qm_qa_003",
+      "category": "quantum_mechanics",
+      "question": "Which commutator corresponds to position and momentum in one dimension?",
+      "expected_answer": "x and p commute to i hbar",
+      "distractors": [
+        "x and p commute to zero",
+        "x and p commute to h squared",
+        "x and p commute to c"
+      ]
+    },
+    {
+      "id": "qm_qa_004",
+      "category": "quantum_mechanics",
+      "question": "What principle limits simultaneous precision of position and momentum?",
+      "expected_answer": "heisenberg uncertainty principle",
+      "distractors": [
+        "pauli exclusion principle",
+        "equivalence principle",
+        "least action principle"
+      ]
+    },
+
+    {
+      "id": "rc_qa_001",
+      "category": "relativity_cosmology",
+      "question": "In special relativity, what happens to time for a fast-moving clock?",
+      "expected_answer": "time dilation",
+      "distractors": [
+        "time contraction",
+        "time is unchanged",
+        "time reversal"
+      ]
+    },
+    {
+      "id": "rc_qa_002",
+      "category": "relativity_cosmology",
+      "question": "What geometric object is curved by mass-energy in general relativity?",
+      "expected_answer": "spacetime",
+      "distractors": [
+        "electric potential",
+        "wavefunction phase",
+        "rest mass"
+      ]
+    },
+    {
+      "id": "rc_qa_003",
+      "category": "relativity_cosmology",
+      "question": "What boundary of a black hole marks no return for light?",
+      "expected_answer": "event horizon",
+      "distractors": [
+        "photon sphere only",
+        "ergosphere always",
+        "accretion disk"
+      ]
+    },
+    {
+      "id": "rc_qa_004",
+      "category": "relativity_cosmology",
+      "question": "What is the speed of light in vacuum denoted by?",
+      "expected_answer": "c",
+      "distractors": [
+        "h",
+        "G",
+        "k"
+      ]
+    },
+
+    {
+      "id": "ts_qa_001",
+      "category": "thermodynamics_statistical",
+      "question": "State the trend of entropy in an isolated system according to the second law.",
+      "expected_answer": "entropy increases",
+      "distractors": [
+        "entropy decreases",
+        "entropy is always zero",
+        "entropy oscillates periodically"
+      ]
+    },
+    {
+      "id": "ts_qa_002",
+      "category": "thermodynamics_statistical",
+      "question": "What function sums Boltzmann factors over states and encodes equilibrium thermodynamics?",
+      "expected_answer": "partition function",
+      "distractors": [
+        "hamiltonian density",
+        "entropy current",
+        "equation of continuity"
+      ]
+    },
+    {
+      "id": "ts_qa_003",
+      "category": "thermodynamics_statistical",
+      "question": "What statistical factor weights a microstate of energy E at temperature T?",
+      "expected_answer": "exp minus E over kT",
+      "distractors": [
+        "exp plus E over kT",
+        "E times kT",
+        "E over T squared"
+      ]
+    },
+    {
+      "id": "ts_qa_004",
+      "category": "thermodynamics_statistical",
+      "question": "In equilibrium, what thermodynamic quantity is equal for systems in thermal contact?",
+      "expected_answer": "temperature",
+      "distractors": [
+        "pressure only",
+        "volume only",
+        "particle number only"
+      ]
+    },
+
+    {
+      "id": "em_qa_001",
+      "category": "electromagnetism",
+      "question": "Which law gives divergence of electric field in terms of charge density?",
+      "expected_answer": "gauss law",
+      "distractors": [
+        "faraday law",
+        "ampere law without displacement",
+        "lenz law"
+      ]
+    },
+    {
+      "id": "em_qa_002",
+      "category": "electromagnetism",
+      "question": "What is the force on charge q moving with velocity v in fields E and B called?",
+      "expected_answer": "lorentz force",
+      "distractors": [
+        "coriolis force",
+        "newton gravitational force",
+        "yukawa force"
+      ]
+    },
+    {
+      "id": "em_qa_003",
+      "category": "electromagnetism",
+      "question": "What does a changing magnetic field induce according to Faraday's law?",
+      "expected_answer": "electric field",
+      "distractors": [
+        "mass current",
+        "gravitational wave",
+        "chemical potential"
+      ]
+    },
+    {
+      "id": "em_qa_004",
+      "category": "electromagnetism",
+      "question": "Coulomb force scales with distance r as what inverse power?",
+      "expected_answer": "inverse square",
+      "distractors": [
+        "inverse first power",
+        "inverse cube",
+        "inverse fourth power"
+      ]
+    },
+
+    {
+      "id": "pp_qa_001",
+      "category": "particle_physics",
+      "question": "Which boson is associated with the electromagnetic interaction?",
+      "expected_answer": "photon",
+      "distractors": [
+        "gluon only",
+        "higgs boson",
+        "graviton"
+      ]
+    },
+    {
+      "id": "pp_qa_002",
+      "category": "particle_physics",
+      "question": "What mechanism gives masses to W and Z bosons in the Standard Model?",
+      "expected_answer": "higgs mechanism",
+      "distractors": [
+        "casimir effect",
+        "cherenkov radiation",
+        "photoelectric effect"
+      ]
+    },
+    {
+      "id": "pp_qa_003",
+      "category": "particle_physics",
+      "question": "What interaction is mediated by gluons?",
+      "expected_answer": "strong interaction",
+      "distractors": [
+        "electromagnetic interaction",
+        "weak interaction",
+        "gravitational interaction"
+      ]
+    },
+    {
+      "id": "pp_qa_004",
+      "category": "particle_physics",
+      "question": "Which quantum number is conserved in strong interactions and labels quark families?",
+      "expected_answer": "flavor",
+      "distractors": [
+        "temperature",
+        "viscosity",
+        "entropy flux"
+      ]
+    }
+  ]
+}
