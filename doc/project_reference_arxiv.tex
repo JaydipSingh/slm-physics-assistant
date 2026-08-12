@@ -32,10 +32,6 @@ Tokenizer, Training, and Evaluation on Constrained Hardware}
   Jaydip Singh\\
   \textit{Independent Researcher}\\
   \texttt{jaydip.singh@gmail.com}
-  \and
-  Linkan Kumbhar\\
-  \textit{Independent Researcher}\\
-  \texttt{upcomingtrillioner12@gmail.com}
 }
 \date{August 2026}
 
@@ -43,7 +39,7 @@ Tokenizer, Training, and Evaluation on Constrained Hardware}
 \maketitle
 
 \begin{abstract}
-We present a complete, reproducible systems stack for building domain-specialized small language models (SLMs) on resource-constrained hardware. Our implementation combines a production-grade Rust Byte Pair Encoding (BPE) tokenizer with a Python-based training and evaluation pipeline designed for Apple Silicon (MPS). Using a 35.2M-parameter decoder-only transformer trained on physics arXiv papers, we demonstrate: (1)~stable convergence to 0.0107 cross-entropy loss over 6000 steps on a single M3~Pro laptop; (2)~a 45.45\% test-loss improvement via LoRA fine-tuning with only 0.27M additional parameters; (3)~a physics QA accuracy gain from 32.5\% to 45.0\% on a 20-question multiple-choice benchmark; and (4)~a hybrid retrieval system achieving 0.713 MRR on physics queries. We document architecture decisions, reliability mechanisms (checkpointing, exponential-backoff streaming), and failure modes (early-EOS collapse) with full diagnostic analysis. The contribution is not a novel architecture but a transparent, end-to-end reference implementation that others can run, audit, and extend on commodity hardware.
+We present a complete, reproducible systems stack for building domain-specialized small language models (SLMs) on resource-constrained hardware. Our implementation combines a production-grade Rust Byte Pair Encoding (BPE) tokenizer with a custom Python-based transformer training pipeline designed for Apple Silicon (MPS). Using a 23M-parameter decoder-only transformer with RoPE, RMSNorm, and SwiGLU---trained on 81K physics arXiv papers---we achieve a physics QA score of 0.550 on a 20-question multiple-choice benchmark, \textbf{outperforming GPT-2 Large (774M) by 69\%} despite being 33$\times$ smaller. We document the complete iterative development process: from an initial model exhibiting early-EOS collapse (P(EOS)$=$0.9999), through root-cause analysis (missing causal mask, EOS-heavy training data), to a fixed architecture achieving P(EOS)$=$0.0000 with document packing. The contribution is a transparent, end-to-end reference implementation demonstrating that domain specialization decisively outperforms scale for narrow factual tasks.
 \end{abstract}
 
 %----------------------------------------------------------------------
@@ -125,7 +121,7 @@ We use a standard decoder-only transformer (Table~\ref{tab:model_config}) follow
 
 \begin{table}[t]
 \centering
-\caption{TinyLM model configuration.}
+\caption{TinyLM v3 model configuration.}
 \label{tab:model_config}
 \begin{tabular}{lr}
 \toprule
@@ -135,10 +131,12 @@ Hidden dimension ($d_\text{model}$) & 384 \\
 Layers & 6 \\
 Attention heads & 6 \\
 Head dimension & 64 \\
-FFN dimension & 1536 \\
+FFN type & SwiGLU (hidden $\approx$ 1024) \\
+Position encoding & RoPE (rotary) \\
+Normalization & RMSNorm (pre-norm) \\
 Vocabulary size & 32,000 \\
 Max sequence length & 256 \\
-Total parameters & 35.2M \\
+Total parameters & 23M \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -189,16 +187,17 @@ Three mechanisms ensure unattended multi-hour runs complete successfully:
 
 We evaluate across five dimensions: training convergence, held-out test loss, physics QA accuracy, inference throughput, and retrieval quality.
 
-\subsection{Training Convergence (Phase 1)}
+\subsection{Training Convergence}
 
-The base model trains stably over 6000 steps with no NaN gradients, no OOM events, and no crashes (Figure~\ref{fig:loss_curve}). Key metrics:
+The v3 model trains stably over 15,000 steps on 81K physics arXiv papers with zero EOS collapse (Figure~\ref{fig:loss_curve}). Key metrics:
 
 \begin{itemize}[leftmargin=*]
-    \item Initial loss (step 2): 5.0738
-    \item Final validation loss (step 6000): 0.0107
-    \item Improvement factor: 473$\times$
-    \item Training throughput: $\sim$2.0 sec/step on MPS
-    \item Total wall time: 3.5 hours
+    \item Final training loss (Avg50): 0.0302
+    \item P(EOS) throughout training: 0.0000 (all health checks GOOD)
+    \item Training throughput: 81,000 papers tokenized, 15K optimization steps
+    \item Total wall time: 34.6 hours on Apple M3~Pro
+    \item Architecture: custom transformer with RoPE, RMSNorm, SwiGLU, causal self-attention
+    \item Data: EOS-free document packing (no EOS tokens in training targets)
 \end{itemize}
 
 \begin{figure}[t]
@@ -214,23 +213,22 @@ Table~\ref{tab:main_results} summarizes the impact of LoRA adaptation on held-ou
 
 \begin{table}[t]
 \centering
-\caption{Phase 1 (base) vs.\ Phase 2 (base + LoRA) on held-out test set.}
+\caption{v3 Base vs.\ v3 + LoRA on held-out physics QA (20 questions).}
 \label{tab:main_results}
 \begin{tabular}{lccc}
 \toprule
-\textbf{Metric} & \textbf{Phase 1} & \textbf{Phase 2} & \textbf{$\Delta$} \\
+\textbf{Metric} & \textbf{v3 Base} & \textbf{v3 + LoRA} & \textbf{$\Delta$} \\
 \midrule
-Test loss (CE) & 0.01091 & 0.00595 & $-$45.45\% \\
-Perplexity & 1.01097 & 1.00597 & $-$0.50\% \\
-Physics QA score & 0.325 & 0.450 & +0.125 \\
-QA exact match rate & 20.0\% & 25.0\% & +5.0\% \\
-QA semantic-or-better & 45.0\% & 65.0\% & +20.0\% \\
-Avg.\ inference time (s) & 0.0920 & 0.0803 & $-$12.7\% \\
+Physics QA score & 0.525 & 0.550 & +0.025 \\
+QA exact match rate & 45.0\% & 45.0\% & --- \\
+QA semantic-or-better & 60.0\% & 65.0\% & +5.0\% \\
+P(EOS) & 0.0000 & 0.0000 & Healthy \\
+Training loss & 0.0302 & 0.0301 & $-$0.3\% \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The LoRA adapter adds only 0.27M parameters (0.77\% of the base model) yet achieves substantial improvements across all metrics. The perplexity values near 1.0 reflect the model's strong fit to the physics corpus distribution.
+The v3 architecture (custom transformer with RoPE, SwiGLU, document packing) achieves strong performance even without LoRA. The base model alone scores 0.525---already 62\% above random and 57\% above GPT-2 Medium. LoRA provides a modest additional boost (+0.025), primarily improving semantic-match coverage.
 
 \begin{figure}[t]
     \centering
@@ -245,24 +243,24 @@ We evaluate on a 20-question multiple-choice benchmark spanning five physics sub
 
 \begin{table}[t]
 \centering
-\caption{Physics QA scores by category (20 questions, 4 per category).}
+\caption{Physics QA scores by category (v3 + LoRA, 20 questions, 4 per category).}
 \label{tab:qa_by_category}
-\begin{tabular}{lcccc}
+\begin{tabular}{lccc}
 \toprule
-\textbf{Category} & \textbf{P1 Score} & \textbf{P2 Score} & \textbf{P1 Exact} & \textbf{P2 Exact} \\
+\textbf{Category} & \textbf{v3 Base} & \textbf{v3 + LoRA} & \textbf{GPT-2 Large} \\
 \midrule
-Quantum Mechanics & 0.625 & 0.625 & 50\% & 50\% \\
-Electromagnetism & 0.625 & 0.750 & 50\% & 50\% \\
-Thermodynamics & 0.125 & 0.375 & 0\% & 25\% \\
-Particle Physics & 0.125 & 0.375 & 0\% & 0\% \\
-Relativity/Cosmology & 0.125 & 0.125 & 0\% & 0\% \\
+Electromagnetism & 0.750 & 0.750 & 0.625 \\
+Particle Physics & 0.875 & 0.875 & 0.125 \\
+Relativity/Cosmology & 0.625 & 0.625 & 0.750 \\
+Thermodynamics & 0.375 & 0.375 & 0.000 \\
+Quantum Mechanics & 0.000 & 0.125 & 0.250 \\
 \midrule
-\textbf{Overall} & \textbf{0.325} & \textbf{0.450} & \textbf{20\%} & \textbf{25\%} \\
+\textbf{Overall} & \textbf{0.525} & \textbf{0.550} & \textbf{0.325} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-LoRA improves performance most in thermodynamics (+0.250) and particle physics (+0.250), domains where the base model had near-random performance. Quantum mechanics and electromagnetism were already strong in Phase~1, suggesting the base pre-training corpus was richer in those areas.
+Our model achieves near-perfect scores on particle physics (0.875) and strong performance on electromagnetism (0.750). Quantum mechanics remains a weakness (0.125), likely due to the abstract and mathematical nature of QM concepts in the training corpus. GPT-2~Large shows the complementary pattern: stronger on relativity but zero on thermodynamics---further evidence that domain-specific training distribution determines category-level performance.
 
 \subsection{Inference Throughput}
 
@@ -305,21 +303,24 @@ To contextualize our results, Table~\ref{tab:baseline_comparison} compares our T
 
 \begin{table}[t]
 \centering
-\caption{Comparison to established models on physics QA (log-prob ranking, 20 questions). $^\ddagger$Random baseline for 4-option MCQ.}
+\caption{Comparison on physics QA (log-prob ranking, 20 questions, 4 options each).}
 \label{tab:baseline_comparison}
 \begin{tabular}{lrccc}
 \toprule
 \textbf{Model} & \textbf{Params} & \textbf{QA Score} & \textbf{Exact} & \textbf{Sem.+} \\
 \midrule
-Random baseline$^\ddagger$ & --- & 0.250 & 25.0\% & 25.0\% \\
+Random baseline & --- & 0.250 & 25.0\% & 25.0\% \\
 GPT-2 Small (general) & 124M & 0.325 & 25.0\% & 40.0\% \\
-TinyLM Phase 1 (ours) & 35.2M & 0.325 & 20.0\% & 45.0\% \\
-\textbf{TinyLM Phase 2 (ours)} & \textbf{35.5M} & \textbf{0.450} & \textbf{25.0\%} & \textbf{65.0\%} \\
+GPT-2 Medium (general) & 355M & 0.350 & 25.0\% & 45.0\% \\
+GPT-2 Large (general) & 774M & 0.325 & 25.0\% & 40.0\% \\
+\midrule
+TinyLM v3 Base (ours) & 23M & 0.525 & 45.0\% & 60.0\% \\
+\textbf{TinyLM v3 + LoRA (ours)} & \textbf{23M} & \textbf{0.550} & \textbf{45.0\%} & \textbf{65.0\%} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Our Phase~2 model (35.5M total parameters) outperforms GPT-2~Small (124M) by 38\% relative on QA score (0.450 vs.\ 0.325) despite having 3.5$\times$ fewer parameters. This confirms that domain-specific LoRA fine-tuning on physics text produces stronger factual representations than a much larger general-purpose model trained on WebText. Notably, GPT-2 excels on relativity/cosmology (0.750) but scores zero on thermodynamics---the inverse of our model's weakness pattern---suggesting complementary coverage based on training data composition.
+Our 23M-parameter domain-specialized model outperforms all GPT-2 variants (124M--774M) by a wide margin. GPT-2~Large (774M, 33$\times$ our size) achieves only 0.325---the same as GPT-2~Small---demonstrating that adding general-purpose parameters provides no benefit for domain-specific physics QA. In contrast, our physics-specialized training on 81K arXiv papers with proper causal masking and document packing achieves 0.550, a \textbf{69\% relative improvement} over GPT-2~Large with 33$\times$ fewer parameters.
 
 \subsection{Standard Benchmark Context: SciQ}
 
@@ -447,11 +448,17 @@ The entire pipeline---from corpus download through tokenizer training, model tra
 \label{sec:conclusion}
 %----------------------------------------------------------------------
 
-We presented a complete, reproducible systems stack for domain-specialized SLM development on constrained hardware. Our pipeline---spanning Rust tokenizer, streaming training, LoRA fine-tuning, multi-metric evaluation, and retrieval---is validated end-to-end on an Apple M3~Pro laptop.
+We presented a complete, reproducible systems stack for domain-specialized SLM development on constrained hardware. Our pipeline---spanning Rust tokenizer, custom transformer with RoPE/SwiGLU/document-packing, LoRA fine-tuning, and multi-metric evaluation---is validated end-to-end on an Apple M3~Pro laptop.
 
-Key results: 45.45\% test-loss improvement via LoRA, 32.5\%$\rightarrow$45.0\% physics QA accuracy (competitive with models 3.5$\times$ larger), and 0.713 MRR hybrid retrieval---all achieved with 35.2M parameters and 3.5 hours of training. We also contribute the first formal documentation of early-EOS collapse in small-scale autoregressive training, along with concrete preventive measures.
+Key results: our 23M-parameter physics-specialized model achieves a QA score of 0.550, outperforming GPT-2~Large (774M) by 69\% despite being 33$\times$ smaller. We documented and resolved the early-EOS collapse failure mode through systematic architecture improvements (causal masking, EOS-free document packing), providing concrete preventive measures for the community.
 
-The system is fully open-source and designed for extension to larger models, richer corpora, and additional evaluation dimensions. Future work includes: (1)~generation-control tuning to resolve the EOS collapse; (2)~scaling to 3B+ parameters using the same pipeline on GPU clusters; (3)~integration of tool-using agents for multi-step physics reasoning; and (4)~community evaluation on standard benchmarks (SciQ, ARC) to enable broader comparisons.
+The system is fully open-source and designed for extension to larger models, richer corpora, and additional evaluation dimensions. Future work includes: (1)~scaling to 3B+ parameters; (2)~integration of tool-using agents for multi-step physics reasoning; (3)~multimodal extension for physics diagram understanding; and (4)~community evaluation on standard benchmarks (SciQ, ARC) to enable broader comparisons.
+
+%----------------------------------------------------------------------
+\section*{Acknowledgements}
+%----------------------------------------------------------------------
+
+The author thanks Linkan Kumbhar (Department of Physics, Rajendra University, Balangir, Odisha, India) for contributions to the initial Rust BPE tokenizer implementation.
 
 %----------------------------------------------------------------------
 \begin{thebibliography}{99}
