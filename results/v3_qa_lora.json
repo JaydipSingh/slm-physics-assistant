@@ -1,0 +1,13 @@
+{
+  "avg_score": 0.55,
+  "exact": 0.45,
+  "sem_plus": 0.65,
+  "p_eos": 1.214987666031675e-08,
+  "by_cat": {
+    "quantum_mechanics": 0.125,
+    "relativity_cosmology": 0.625,
+    "thermodynamics_statistical": 0.375,
+    "electromagnetism": 0.75,
+    "particle_physics": 0.875
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "metadata": {
+    "benchmark": "SciQ (allenai/sciq)",
+    "split": "test",
+    "num_questions": 100,
+    "model": "gpt2 (124M)",
+    "method": "log-probability ranking (4 options)",
+    "timestamp": "2026-08-02 13:48:20",
+    "elapsed_seconds": 51.87019896507263
+  },
+  "summary": {
+    "accuracy": 0.4,
+    "correct": 40,
+    "total": 100,
+    "random_baseline": 0.25
+  }
+}

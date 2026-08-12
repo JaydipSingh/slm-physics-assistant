@@ -1,0 +1,44 @@
+[
+  {
+    "model": "gpt2",
+    "params_m": 124.439808,
+    "qa_score": 0.325,
+    "exact": 0.25,
+    "semantic_plus": 0.4,
+    "by_category": {
+      "quantum_mechanics": 0.25,
+      "relativity_cosmology": 0.75,
+      "thermodynamics_statistical": 0.0,
+      "electromagnetism": 0.375,
+      "particle_physics": 0.25
+    }
+  },
+  {
+    "model": "gpt2-medium",
+    "params_m": 354.823168,
+    "qa_score": 0.35,
+    "exact": 0.25,
+    "semantic_plus": 0.45,
+    "by_category": {
+      "quantum_mechanics": 0.25,
+      "relativity_cosmology": 0.75,
+      "thermodynamics_statistical": 0.0,
+      "electromagnetism": 0.625,
+      "particle_physics": 0.125
+    }
+  },
+  {
+    "model": "gpt2-large",
+    "params_m": 774.03008,
+    "qa_score": 0.325,
+    "exact": 0.3,
+    "semantic_plus": 0.35,
+    "by_category": {
+      "quantum_mechanics": 0.25,
+      "relativity_cosmology": 0.875,
+      "thermodynamics_statistical": 0.0,
+      "electromagnetism": 0.5,
+      "particle_physics": 0.0
+    }
+  }
+]
