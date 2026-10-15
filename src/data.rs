@@ -31,7 +31,7 @@ where
     }
 
     println!("Shuffling documents...");
-    let mut rng = rand::rng();
+    let mut rng = rand::thread_rng();
     docs.shuffle(&mut rng);
 
     println!("Tokenizing {} documents...", docs.len());
