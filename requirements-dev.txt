@@ -1,0 +1,6 @@
+# Development / test dependencies (in addition to requirements.txt)
+pytest>=7.0
+# Optional: the streaming trainer imports these at module load, so they are
+# needed for the model tests to run (rather than skip).
+arxiv>=1.4
+requests>=2.25

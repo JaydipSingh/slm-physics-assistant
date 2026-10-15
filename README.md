@@ -77,6 +77,16 @@ python scripts/run_v3_eval.py --checkpoint checkpoints/v3_long50k_final.pt \
     --lora checkpoints/phase2_lora_v3/best_lora_adapter.pt
 ```
 
+### Running the tests
+```bash
+pip install -r requirements-dev.txt
+python -m pytest tests/ -v     # Python tests (model, packing, data integrity)
+cargo test                     # Rust tokenizer tests
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and contribution
+guidelines.
+
 ## Repository Structure
 
 ```
